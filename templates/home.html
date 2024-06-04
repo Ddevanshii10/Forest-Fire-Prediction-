@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Algerian Forest Fire Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://cdn.pixabay.com/photo/2014/09/01/14/39/forest-fire-432870_1280.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            animation: background-shift 60s infinite alternate linear;
+          }
+          
+          @keyframes background-shift {
+            from {
+              background-position: 0 0;
+            }
+            to {
+              background-position: 100% 0;
+            }
+          }
+          
+          /* Container Styling */
+          .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly more opaque */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Increased shadow intensity */
+            border-radius: 10px;
+            animation: container-glow 5s infinite alternate;
+          }
+          
+          @keyframes container-glow {
+            from {
+              box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+            to {
+              box-shadow: 0 0 20px rgba(76, 175, 80, 0.5);
+            }
+          }
+          
+          /* Heading Styling */
+          h1 {
+            color: #333;
+            text-align: center;
+            font-size: 36px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            animation: heading-pulse 2s infinite;
+          }
+          
+          @keyframes heading-pulse {
+            0% {
+              text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            }
+            50% {
+              text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+            }
+            100% {
+              text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            }
+          }
+          
+          /* Form Styling */
+          form {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+          }
+          
+          form > div {
+            margin-right: 20px;
+          }
+          
+          label {
+            margin-top: 10px;
+            display: inline-block;
+            color: #666;
+            font-weight: bold;
+            width: 120px;
+            text-align: right;
+            margin-right: 10px;
+          }
+          
+          input[type="number"] {
+            width: 150px;
+            padding: 10px;
+            margin: 5px 0 20px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+          }
+          
+          input[type="number"]:focus {
+            border-color: #4caf50;
+            outline: none;
+          }
+          
+          input[type="submit"] {
+            width: 100%;
+            background-color: #4caf50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+          }
+          
+          input[type="submit"]:hover {
+            background-color: #45a049;
+          }
+          
+          /* Result Heading */
+          h2 {
+            color: #4caf50;
+            text-align: center;
+            font-size: 24px;
+            animation: result-fade 1s;
+          }
+          
+          @keyframes result-fade {
+            from {
+              opacity: 0;
+            }
+            to {
+              opacity: 1;
+            }
+          }
+          
+          /* GitHub Button */
+          .github-button {
+            display: inline-block;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            position: fixed;
+            bottom: 20px;
+            right: 20
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>Algerian Forest Fire Prediction</h1>
+      <form action="/predictdata" method="post">
+        <div>
+          <label for="Temperature">Temperature:</label>
+          <input type="number" id="Temperature" name="Temperature" step="any" required />
+        </div>
+        <div>
+          <label for="RH">RH:</label>
+          <input type="number" id="RH" name="RH" step="any" required />
+        </div>
+        <div>
+          <label for="Ws">Ws:</label>
+          <input type="number" id="Ws" name="Ws" step="any" required />
+        </div>
+        <div>
+          <label for="Rain">Rain:</label>
+          <input type="number" id="Rain" name="Rain" step="any" required />
+        </div>
+        <div>
+          <label for="FFMC">FFMC:</label>
+          <input type="number" id="FFMC" name="FFMC" step="any" required />
+        </div>
+        <div>
+          <label for="DMC">DMC:</label>
+          <input type="number" id="DMC" name="DMC" step="any" required />
+        </div>
+        <div>
+          <label for="ISI">ISI:</label>
+          <input type="number" id="ISI" name="ISI" step="any" required />
+        </div>
+        <div>
+          <label for="Classes">Classes:</label>
+          <input type="number" id="Classes" name="Classes" step="any" required />
+        </div>
+        <div>
+          <label for="Region">Region:</label>
+          <input type="number" id="Region" name="Region" step="any" required />
+        </div>
+        <input type="submit" value="Submit" />
+      </form>
+      <h2>Prediction Result: {{ result }}</h2>
+      <h2>Forest Status: {{ forest_status }}</h2>
+    </div>
+    <a href="https://github.com/kshitijkumrawat20/ML_project_Forest_fire_prediction" target="_blank" class="github-button">GitHub Repository</a>
+  </body>
+</html>
